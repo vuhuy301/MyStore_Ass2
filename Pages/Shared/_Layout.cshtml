@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyStore_WebApp</title>
+    <title>@ViewData["Title"] - MyStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyStore_WebApp.styles.css" asp-append-version="true" />
@@ -22,9 +22,48 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                        @if (Context.Session.GetString("Username") != null)
+                        {
+                            @if (Context.Session.GetInt32("Role") == 0)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="">Order</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form method="post" asp-area="" asp-page="/Account/Logout" id="logoutForm">
+                                        <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
+                                    </form>
+                                </li>
+                            }else{
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="">Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="">Order</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="">Report</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form method="post" asp-area="" asp-page="/Account/Logout" id="logoutForm">
+                                        <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
