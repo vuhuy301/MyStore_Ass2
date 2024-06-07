@@ -1,3 +1,5 @@
+using MyStore_WebApp.Models;
+
 namespace MyStore_WebApp
 {
     public class Program
@@ -8,6 +10,14 @@ namespace MyStore_WebApp
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddDbContext<MyStoreContext>();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -23,6 +33,8 @@ namespace MyStore_WebApp
             app.UseAuthorization();
 
             app.MapRazorPages();
+
+            app.UseSession();
 
             app.Run();
         }
