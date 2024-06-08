@@ -70,6 +70,10 @@
             <input type="password" id="Password" name="Password" placeholder="Password" required />
         </div>
         <button type="submit">Login</button>
+        @if (ViewData["ErrorMessage"] != null)
+        {
+            <p class="text-danger">@ViewData["ErrorMessage"]</p>
+        }
     </form>
 </body>
 </html>
