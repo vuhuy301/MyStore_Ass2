@@ -37,6 +37,7 @@ namespace MyStore_WebApp.Pages.Account
             }
             else
             {
+                ViewData["ErrorMessage"] = "Invalid username or password.";
                 return Page();
             }
         }
