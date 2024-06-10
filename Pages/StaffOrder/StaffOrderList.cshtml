@@ -1,0 +1,28 @@
+﻿@page
+@model MyStore_WebApp.Pages.StaffOrder.StaffOrderListModel
+
+<h2>Orders List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Staff</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                <td>@order.Staff.Name</td>
+                <td>
+                    <a class="btn btn-link" asp-page="/StaffOrder/OrderDetails" asp-route-orderId="@order.OrderId">Show Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

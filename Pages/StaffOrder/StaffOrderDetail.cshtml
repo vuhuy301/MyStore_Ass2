@@ -1,0 +1,26 @@
+﻿@page "{orderId:int}"
+@model MyStore_WebApp.Pages.StaffOrder.StaffOrderDetailModel
+
+<h2>Order Details</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.OrderDetails)
+        {
+            <tr>
+                <td>@detail.ProductId</td>
+                <td>@detail.Quantity</td>
+                <td>@detail.UnitPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" asp-page="/StaffOrder/StaffOrderList">Back to Orders List</a>
