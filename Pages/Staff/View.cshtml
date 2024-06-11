@@ -1,0 +1,45 @@
+﻿@page
+@model MyStore_WebApp.Pages.Staff.ViewModel
+@{
+    ViewData["Title"] = "Staff List";
+}
+
+<h2>Staff List</h2>
+<a asp-page="/Staff/Create" class="btn btn-success mb-2">Add New Staff</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Staff ID</th>
+            <th>Name</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in Model.StaffList)
+        {
+            <tr>
+                <td>@staff.StaffId</td>
+                <td>@staff.Name</td>
+                <td>@staff.Password</td>
+                <td>
+                    @if (staff.Role == 1)
+                    {
+                        @:Admin
+                    }
+                    else if (staff.Role == 2)
+                    {
+                        @:Staff
+                    }
+                </td>
+                <td>
+                    <a asp-page="/Staff/Update" asp-route-id="@staff.StaffId" class="btn btn-primary">Update</a>
+                    <form method="post" asp-page="/Staff/Delete" asp-route-id="@staff.StaffId" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
