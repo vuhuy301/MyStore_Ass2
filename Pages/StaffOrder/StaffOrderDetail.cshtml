@@ -1,6 +1,5 @@
 ﻿@page "{orderId:int}"
 @model MyStore_WebApp.Pages.StaffOrder.StaffOrderDetailModel
-
 <h2>Order Details</h2>
 
 <table class="table">
@@ -9,15 +8,22 @@
             <th>Product ID</th>
             <th>Quantity</th>
             <th>Unit Price</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var detail in Model.OrderDetails)
         {
             <tr>
+                <td>@detail.OrderDetailId</td>
                 <td>@detail.ProductId</td>
                 <td>@detail.Quantity</td>
                 <td>@detail.UnitPrice</td>
+                <td>
+                    <form method="post" asp-page-handler="DeleteOrderDetail" asp-route-id="@detail.OrderDetailId">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

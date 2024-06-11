@@ -3,6 +3,18 @@
 
 <h2>Orders List</h2>
 
+<form method="get">
+    <div class="form-group">
+        <label for="searchDate">Search by Date:</label>
+        <input type="date" class="form-control" id="searchDate" name="searchDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div class="text-right mb-3">
+    <a class="btn btn-primary" asp-page="/StaffOrder/AddOrder">Add Order</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -20,7 +32,7 @@
                 <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                 <td>@order.Staff.Name</td>
                 <td>
-                    <a class="btn btn-link" asp-page="/StaffOrder/OrderDetails" asp-route-orderId="@order.OrderId">Show Details</a>
+                    <a class="btn btn-link" asp-page="/StaffOrder/StaffOrderDetail" asp-route-orderId="@order.OrderId">Show Details</a>
                 </td>
             </tr>
         }
