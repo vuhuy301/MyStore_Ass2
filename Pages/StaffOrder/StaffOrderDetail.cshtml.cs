@@ -26,12 +26,27 @@ namespace MyStore_WebApp.Pages.StaffOrder
                                          .Where(od => od.OrderId == orderId)
                                          .ToListAsync();
 
-            if (OrderDetails == null)
+            if (OrderDetails == null || OrderDetails.Count == 0)
             {
                 return NotFound();
             }
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostDeleteOrderDetailAsync(int orderDetailId)
+        {
+            var detail = await _context.OrderDetails.FindAsync(orderDetailId);
+
+            if (detail == null)
+            {
+                return NotFound();
+            }
+
+            _context.OrderDetails.Remove(detail);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
         }
     }
 }

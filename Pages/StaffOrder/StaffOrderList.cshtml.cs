@@ -18,17 +18,24 @@ namespace MyStore_WebApp.Pages.StaffOrder
 
         public IList<Order> Orders { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(DateTime? searchDate)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
 
             if (userId != null)
             {
-                Orders = await _context.Orders
-                                       .Include(o => o.Staff)
-                                       .Include(o => o.OrderDetails)
-                                       .Where(o => o.StaffId == userId)
-                                       .ToListAsync();
+           
+                IQueryable<Order> ordersQuery = _context.Orders
+                                                         .Include(o => o.Staff)
+                                                         .Include(o => o.OrderDetails)
+                                                         .Where(o => o.StaffId == userId);
+
+                if (searchDate.HasValue)
+                {
+                    ordersQuery = ordersQuery.Where(o => o.OrderDate.Date == searchDate.Value.Date);
+                }
+
+                Orders = await ordersQuery.ToListAsync();
             }
             else
             {
