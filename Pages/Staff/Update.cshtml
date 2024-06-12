@@ -1,0 +1,30 @@
+﻿@page "{id:int}"
+@model MyStore_WebApp.Pages.Staff.UpdateModel
+@{
+    ViewData["Title"] = "Update Staff";
+}
+
+<h2>Update Staff</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Staff.StaffId" />
+    <div class="form-group">
+        <label asp-for="Staff.Name"></label>
+        <input asp-for="Staff.Name" class="form-control" />
+        <span asp-validation-for="Staff.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Staff.Password"></label>
+        <input asp-for="Staff.Password" class="form-control" />
+        <span asp-validation-for="Staff.Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Staff.Role"></label>
+        <select asp-for="Staff.Role" class="form-control">
+            <option value="1">Admin</option>
+            <option value="2">Staff</option>
+        </select>
+        <span asp-validation-for="Staff.Role" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Staff</button>
+</form>

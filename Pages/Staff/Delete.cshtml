@@ -1,0 +1,14 @@
+﻿@page "{id:int}"
+@model MyStore_WebApp.Pages.Staff.DeleteModel
+@{
+    ViewData["Title"] = "Delete Staff";
+}
+
+<h2>Delete Staff</h2>
+
+<form method="post">
+    <div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-page="/Staff/View" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
