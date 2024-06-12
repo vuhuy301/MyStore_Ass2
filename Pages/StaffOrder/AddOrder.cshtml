@@ -1,0 +1,16 @@
+﻿@page
+@model MyStore_WebApp.Pages.StaffOrder.AddOrderModel
+@{
+    ViewData["Title"] = "Add Order";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="orderDate">Order Date:</label>
+        <input type="date" class="form-control" id="orderDate" asp-for="NewOrder.OrderDate" />
+    </div>
+    <input type="hidden" asp-for="NewOrder.StaffId" />
+    <button type="submit" class="btn btn-primary">Add Order</button>
+</form>
