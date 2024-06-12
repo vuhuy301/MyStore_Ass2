@@ -11,7 +11,11 @@ namespace MyStore_WebApp.Models
         }
 
         public int OrderId { get; set; }
+
+        
         public DateTime OrderDate { get; set; }
+
+        
         public int StaffId { get; set; }
 
         public virtual Staff Staff { get; set; } = null!;

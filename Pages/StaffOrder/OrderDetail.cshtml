@@ -1,0 +1,31 @@
+﻿@page
+@model MyStore_WebApp.Pages.StaffOrder.OrderDetailModel
+
+<h2>Order Details</h2>
+<a class="btn btn-success" asp-page="/StaffOrder/AddOrderDetail">Add Order Detail</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model.OrderDetails)
+        {
+            <tr>
+                <td>@detail.ProductId</td>
+                <td>@detail.Quantity</td>
+                <td>@detail.UnitPrice</td>
+                <td>
+                    <a asp-page="/StaffOrder/StaffOrderDetail" asp-route-orderId="@detail.OrderDetailId" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" asp-page="/StaffOrder/Index">Back to Orders List</a>
