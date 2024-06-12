@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace MyStore_WebApp.Models
@@ -9,10 +10,11 @@ namespace MyStore_WebApp.Models
         {
             Products = new HashSet<Product>();
         }
-
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = null!;
 
         public virtual ICollection<Product> Products { get; set; }
+
+
     }
 }
