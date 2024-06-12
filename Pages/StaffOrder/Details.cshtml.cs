@@ -9,32 +9,32 @@ using MyStore_WebApp.Models;
 
 namespace MyStore_WebApp.Pages.StaffOrder
 {
-    public class StaffOrderDetailModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly MyStore_WebApp.Models.MyStoreContext _context;
 
-        public StaffOrderDetailModel(MyStore_WebApp.Models.MyStoreContext context)
+        public DetailsModel(MyStore_WebApp.Models.MyStoreContext context)
         {
             _context = context;
         }
 
-      public OrderDetail OrderDetail { get; set; } = default!;
+      public Order Order { get; set; } = default!; 
 
-        public async Task<IActionResult> OnGetAsync(int? orderId)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (orderId == null || _context.OrderDetails == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var orderdetail = await _context.OrderDetails.FirstOrDefaultAsync(m => m.OrderDetailId == orderId);
-            if (orderdetail == null)
+            var order = await _context.Orders.FirstOrDefaultAsync(m => m.OrderId == id);
+            if (order == null)
             {
                 return NotFound();
             }
-            else
+            else 
             {
-                OrderDetail = orderdetail;
+                Order = order;
             }
             return Page();
         }
