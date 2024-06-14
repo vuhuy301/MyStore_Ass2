@@ -1,0 +1,48 @@
+﻿@page
+@model MyStore_WebApp.Pages.AdminReport.AdminReportModel
+@{
+    ViewData["Title"] = "Admin Report";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head content here -->
+</head>
+<body>
+    <header>
+        <!-- Header content here -->
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <h1>Admin Report</h1>
+            <!-- Search bar -->
+            <div class="row mb-3">
+                <!-- Search bar content here -->
+            </div>
+            <!-- Order list -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- Table header content here -->
+                    </tr>
+                </thead>
+                <tbody id="orderList">
+                    <!-- Order items will be appended here dynamically -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <!-- Footer content here -->
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // JavaScript code here
+    </script>
+</body>
+</html>

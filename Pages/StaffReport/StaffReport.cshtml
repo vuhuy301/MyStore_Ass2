@@ -1,0 +1,48 @@
+﻿@page
+@model MyStore_WebApp.Pages.StaffReport.StaffReportModel
+@{
+    ViewData["Title"] = "Staff Report";
+}
+
+<h2>Staff Report</h2>
+
+<form method="post">
+    <div>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <button type="submit">Search</button>
+    </div>
+</form>
+
+@if (Model.Orders != null && Model.Orders.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Staff ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                    <td>@order.StaffId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No orders found for the selected date range.</p>
+}

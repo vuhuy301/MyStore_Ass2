@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,60 +11,29 @@ namespace MyStore_WebApp.Pages.StaffOrder
 {
     public class CreateModel : PageModel
     {
-        private readonly MyStoreContext _context;
+        private readonly MyStore_WebApp.Models.MyStoreContext _context;
 
-        public CreateModel(MyStoreContext context)
+        public CreateModel(MyStore_WebApp.Models.MyStoreContext context)
         {
             _context = context;
         }
 
         public IActionResult OnGet()
         {
-            // Retrieve StaffId from session
-            int? staffId = HttpContext.Session.GetInt32("UserId");
-            if (staffId == null)
-            {
-                // Redirect to login page if StaffId is not in session
-                return RedirectToPage("/Account/Login");
-            }
-
-            // Create a new Order and set the StaffId and OrderDate from session
-            Order = new Order
-            {
-                StaffId = staffId.Value,
-                OrderDate = DateTime.Today // Set OrderDate to today's date
-            };
-
+        ViewData["StaffId"] = new SelectList(_context.Staffs, "StaffId", "StaffId");
             return Page();
         }
 
         [BindProperty]
         public Order Order { get; set; } = default!;
+        
 
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            // Retrieve StaffId from session
-            int? staffId = HttpContext.Session.GetInt32("UserId");
-            if (staffId == null)
-            {
-                // Redirect to login page if StaffId is not in session
-                return RedirectToPage("/Account/Login");
-            }
-
-            // Set the StaffId from session
-            Order.StaffId = staffId.Value;
-
-            if (!ModelState.IsValid)
+          if (ModelState.IsValid || _context.Orders == null || Order == null)
             {
                 return Page();
-            }
-
-            // Set OrderDate to today's date
-            Order.OrderDate = DateTime.Today;
-
-            if (_context.Orders == null)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
             _context.Orders.Add(Order);

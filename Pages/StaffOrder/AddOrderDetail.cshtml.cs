@@ -32,7 +32,7 @@ namespace MyStore_WebApp.Pages.StaffOrder
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.OrderDetails == null || OrderDetail == null)
+          if (ModelState.IsValid || _context.OrderDetails == null || OrderDetail == null)
             {
                 return Page();
             }
