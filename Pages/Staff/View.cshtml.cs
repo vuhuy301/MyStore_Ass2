@@ -13,10 +13,20 @@ namespace MyStore_WebApp.Pages.Staff
             _context = dbContext;
         }
         public IList<MyStore_WebApp.Models.Staff> StaffList { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
 
         public async Task OnGetAsync()
         {
-            StaffList = await _context.Staffs.ToListAsync();
+            var staffQuery = from s in _context.Staffs
+                             select s;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                staffQuery = staffQuery.Where(s => s.Name.Contains(SearchString));
+            }
+
+            StaffList = await staffQuery.ToListAsync();
         }
     }
 }
