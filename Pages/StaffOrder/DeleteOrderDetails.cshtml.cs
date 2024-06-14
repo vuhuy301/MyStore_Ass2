@@ -19,44 +19,47 @@ namespace MyStore_WebApp.Pages.StaffOrder
         }
 
         [BindProperty]
-      public OrderDetail OrderDetail { get; set; } = default!;
+        public OrderDetail OrderDetail { get; set; } // Remove "= default!" here
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.OrderDetails == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var orderdetail = await _context.OrderDetails.FirstOrDefaultAsync(m => m.OrderDetailId == id);
+            OrderDetail = await _context.OrderDetails
+                                        .Include(od => od.Order)
+                                        .Include(od => od.Product)
+                                        .FirstOrDefaultAsync(m => m.OrderDetailId == id);
 
-            if (orderdetail == null)
+            if (OrderDetail == null)
             {
                 return NotFound();
             }
-            else 
-            {
-                OrderDetail = orderdetail;
-            }
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.OrderDetails == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var orderdetail = await _context.OrderDetails.FindAsync(id);
 
-            if (orderdetail != null)
+            OrderDetail = await _context.OrderDetails.FindAsync(id);
+
+            if (OrderDetail != null)
             {
-                OrderDetail = orderdetail;
                 _context.OrderDetails.Remove(OrderDetail);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            // Redirect back to the OrderDetail page with orderId parameter
+            return RedirectToPage("/StaffOrder/OrderDetail", new { orderId = OrderDetail.OrderId });
         }
     }
 }
+
+

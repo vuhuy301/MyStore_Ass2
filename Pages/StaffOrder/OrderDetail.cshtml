@@ -2,14 +2,16 @@
 @model MyStore_WebApp.Pages.StaffOrder.OrderDetailModel
 
 <h2>Order Details</h2>
-<a class="btn btn-success" asp-page="/StaffOrder/AddOrderDetail">Add Order Detail</a>
+<a class="btn btn-success" asp-page="/StaffOrder/AddOrderDetail" asp-route-orderId="@Model.OrderId">Add Order Detail</a>
 
 <table class="table">
     <thead>
         <tr>
             <th>Product ID</th>
+            <th>Product Name</th>
             <th>Quantity</th>
             <th>Unit Price</th>
+            <th>Total Price</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -18,13 +20,19 @@
         {
             <tr>
                 <td>@detail.ProductId</td>
+                <td>@detail.Product.ProductName</td>
                 <td>@detail.Quantity</td>
                 <td>@detail.UnitPrice</td>
+                <td>@detail.TotalPrice</td>
                 <td>
                     <a asp-page="/StaffOrder/StaffOrderDetail" asp-route-orderId="@detail.OrderDetailId" class="btn btn-primary">Details</a>
                 </td>
             </tr>
         }
+        <tr>
+            <td colspan="4" class="text-right"><strong>Total Order Price:</strong></td>
+            <td colspan="2"><strong>@Model.TotalOrderPrice</strong></td>
+        </tr>
     </tbody>
 </table>
 

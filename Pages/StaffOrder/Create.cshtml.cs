@@ -20,19 +20,24 @@ namespace MyStore_WebApp.Pages.StaffOrder
 
         public IActionResult OnGet()
         {
-        ViewData["StaffId"] = new SelectList(_context.Staffs, "StaffId", "StaffId");
+            // Set default value for OrderDate to today's date
+            Order = new Order
+            {
+                OrderDate = DateTime.Today // Set default value to today's date
+            };
+
+            ViewData["StaffId"] = new SelectList(_context.Staffs, "StaffId", "StaffId");
             return Page();
         }
 
         [BindProperty]
-        public Order Order { get; set; } = default!;
-        
+        public Order Order { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (ModelState.IsValid || _context.Orders == null || Order == null)
+            if (ModelState.IsValid)
             {
+                ViewData["StaffId"] = new SelectList(_context.Staffs, "StaffId", "StaffId");
                 return Page();
             }
 

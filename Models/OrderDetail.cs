@@ -10,7 +10,8 @@ namespace MyStore_WebApp.Models
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public int UnitPrice { get; set; }
-
+    
+        public decimal TotalPrice => Quantity * UnitPrice;
         public virtual Order Order { get; set; } = null!;
         public virtual Product Product { get; set; } = null!;
     }

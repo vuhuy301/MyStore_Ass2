@@ -18,17 +18,30 @@ namespace MyStore_WebApp.Pages.StaffOrder
         }
 
         public IList<OrderDetail> OrderDetails { get; set; }
+        public int OrderId { get; set; }
+        public decimal TotalOrderPrice { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int orderId)
+        public async Task<IActionResult> OnGetAsync(int? orderId)
         {
+            if (orderId == null)
+            {
+                return Page();
+            }
+
+            OrderId = orderId.Value;
+
             OrderDetails = await _context.OrderDetails
+                                         .Include(od => od.Product)
                                          .Where(od => od.OrderId == orderId)
                                          .ToListAsync();
 
             if (OrderDetails == null || OrderDetails.Count == 0)
             {
-                return NotFound();
+                return Page();
             }
+
+            // Calculate the total order price
+            TotalOrderPrice = OrderDetails.Sum(od => od.TotalPrice);
 
             return Page();
         }

@@ -44,7 +44,7 @@ namespace MyStore_WebApp.Pages.StaffOrder
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return Page();
             }

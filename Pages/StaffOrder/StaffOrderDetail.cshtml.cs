@@ -24,13 +24,13 @@ namespace MyStore_WebApp.Pages.StaffOrder
         {
             if (orderId == null || _context.OrderDetails == null)
             {
-                return NotFound();
+                return Page();
             }
 
             var orderdetail = await _context.OrderDetails.FirstOrDefaultAsync(m => m.OrderDetailId == orderId);
             if (orderdetail == null)
             {
-                return NotFound();
+                return Page();
             }
             else
             {

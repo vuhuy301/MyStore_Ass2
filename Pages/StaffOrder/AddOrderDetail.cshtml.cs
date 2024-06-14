@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,29 +15,42 @@ namespace MyStore_WebApp.Pages.StaffOrder
             _context = context;
         }
 
-        public IActionResult OnGet()
+        [BindProperty]
+        public OrderDetail OrderDetail { get; set; } = default!;
+
+        [BindProperty(SupportsGet = true)]
+        public int? OrderId { get; set; }
+
+        public IActionResult OnGet(int? orderId)
         {
-        ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId");
-        ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId");
+            if (orderId == null)
+            {
+                return NotFound();
+            }
+
+            OrderId = orderId;
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
+
+            OrderDetail = new OrderDetail
+            {
+                OrderId = OrderId.Value
+            };
+
             return Page();
         }
 
-        [BindProperty]
-        public OrderDetail OrderDetail { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (ModelState.IsValid || _context.OrderDetails == null || OrderDetail == null)
+            if (ModelState.IsValid)
             {
+                ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
                 return Page();
             }
 
             _context.OrderDetails.Add(OrderDetail);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./OrderDetail", new { orderId = OrderDetail.OrderId });
         }
     }
 }
